@@ -3,6 +3,8 @@
 *This file will take a file of data strings into human readable output.
 */
 
+error_reporting(E_STRICT);
+error_reporting(-1);
 
 /**
 *This function opens the file to be read, sends the file off and closes the file.
@@ -22,13 +24,15 @@ function kickoff($dataFile){
 *@param $fp the open file.
 *@var $wrongFormatLine an array of incorrect formatted lines.
 *@var $countBlankLine an array to track the blank lines.
+*@var $count counts the amount of times ran in the while loop.
 */
 function seperateRecords($fp){
 	$regxString = '/[0-9]{16}[A-Z]{3}.{32}[0-9A-Z]{8}[0-9A-Z]{8}[ 0-9]{5}-[0-9]{2}-[0-9]{2}[ 0-4]{3}:[0-9]{2}:[0-9]{2}/';
 	$wrongFormatLine = array();
 	$countBlankLine = array();
+	$count = 0;
 	while ($s = fgets($fp,1024)) {
-		$count += 1;
+		$count++;
 		if (preg_match($regxString, $s)) {
 			$fields[1] = substr($s,0,16);  
 			$fields[2] = substr($s,16,3);  
