@@ -1,8 +1,13 @@
 <?php
+/**
+*This file will take a file of data strings into human readable output.
+*/
+
 
 /**
 *This function opens the file to be read, sends the file off and closes the file.
-*args $datafile is the data file to be evaluated by the program.
+*@param $datafile is the data file to be evaluated by the program.
+*@var $fp an open file.
 */
 function kickoff($dataFile){
 	$fp = fopen($dataFile,'r') or die ("can't open file");
@@ -14,7 +19,9 @@ function kickoff($dataFile){
 *This function is where the work in done. Before eack line is read in to the program, 
 *  it will be tested by the regular experession. IF it passes it will then be read.  
 *  IF NOT it will be stored in an array and be printed at the end of the file.
-*args $fp the open file.
+*@param $fp the open file.
+*@var $wrongFormatLine an array of incorrect formatted lines.
+*@var $countBlankLine an array to track the blank lines.
 */
 function seperateRecords($fp){
 	$regxString = '/[0-9]{16}[A-Z]{3}.{32}[0-9A-Z]{8}[0-9A-Z]{8}[ 0-9]{5}-[0-9]{2}-[0-9]{2}[ 0-4]{3}:[0-9]{2}:[0-9]{2}/';
@@ -46,7 +53,7 @@ function seperateRecords($fp){
 
 /**
 *Prints out the array for the incorrect format.
-*args $wrongFormatLine an array of the records in the wrong format.
+*@param $wrongFormatLine an array of the records in the wrong format.
 */
 function printArray($wrongFormatLine){
 	print('Record(s) Was Incorrect Format: ');
@@ -58,7 +65,7 @@ function printArray($wrongFormatLine){
 
 /**
 *Prints out the blank lines of the data file.
-*args $countBlankLine an array of blank lines.
+*@param $countBlankLine an array of blank lines.
 */
 function printBlankLine($countBlankLine){
 	print('Blank Line(s): ');
@@ -70,8 +77,8 @@ function printBlankLine($countBlankLine){
 
 /**
 *Prints out a easy to read fromat of each record.
-*args $fields array of the seperated fields.
-*args $count a count of each line.
+*@param $fields array of the seperated fields.
+*@param $count a count of each line.
 */
 function processFields($fields, $count) {
 	print("\nLine Number: {$count}
