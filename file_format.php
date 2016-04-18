@@ -33,7 +33,7 @@ function seperateRecords($fp){
 	$count = 0;
 	while ($s = fgets($fp,1024)) {
 		$count++;
-		if (preg_match($regxString, $s)) {
+		if (preg_match($regxString, $s) && strlen($s) == 88) {
 			$fields[1] = substr($s,0,16);  
 			$fields[2] = substr($s,16,3);  
 			$fields[3] = substr($s,19,32);
@@ -42,7 +42,7 @@ function seperateRecords($fp){
 			$fields[6] = substr($s,67,20);
 			processFields($fields, $count);
 		}
-		elseif (strlen($s) > 1){
+		elseif (strlen($s) > 1 || strlen($s) > 88){
 			array_push($wrongFormatLine, $count);
 		}
 		else {
